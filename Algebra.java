@@ -25,43 +25,94 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+
+		int number = x1;
+		int nOfTimes = x2;
+		
+
+		for (int i = 0; i < nOfTimes; i++) {
+			number++;
+		}
+		return number;
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		
+		int number = x1;
+		int nOfTimes = x2;
+		
+		for (int i = 0; i < nOfTimes; i++) {
+			number--;
+		}
+		return number;
 	}
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+
+		
+		int firstMultiple = plus(0, x1);
+		int product = 0;
+
+		for (int i = 0; i < x2; i++) {
+			
+		product = plus(product, firstMultiple);
+		}
+
+		return product;
 	}
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
-		// Replace the following statement with your code
-		return 0;
+		
+		if ( n == 0 ) return 1;
+		else if ( n == 1 ) return x;
+
+		int product = x;
+
+		for (int i = 0; i <= n-2; i++) {
+		product = times(product, x);
+		}
+		return product;
 	}
 
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		
+		int divisor = x2;
+		int i = 1;
+
+		while (divisor < x1) { 
+			divisor = plus(divisor, x2);
+			i++;
+
+		}
+		boolean notBiggerThan = divisor > x1;
+		if (notBiggerThan) return minus(i, 1);
+		return i;
 	}
 
-	// Returns x1 % x2
+	// Returns x1 %
 	public static int mod(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		int division = div(x1, x2);
+		int composition = times(x2, division);
+
+		return minus (x1, composition);
 	}	
 
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
-		// Replace the following statement with your code
-		return 0;
+
+		int a = 2;
+		int check = 2;
+		boolean equalTo = a == x;
+
+		while (!equalTo) {
+			a = pow(check, 2);
+			check++;
+		}
+
+		return a;
 	}	  	  
 }

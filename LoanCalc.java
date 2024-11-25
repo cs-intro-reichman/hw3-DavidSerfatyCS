@@ -12,7 +12,9 @@ public class LoanCalc {
 		double loan = Double.parseDouble(args[0]);
 		double rate = Double.parseDouble(args[1]);
 		int n = Integer.parseInt(args[2]);
-		
+		//double loan = 250000;
+		//double rate = 0.10;
+		//int n = 10;
 
 		System.out.println("Loan = " + loan + ", interest rate = " + rate + "%, periods = " + n);
 				
@@ -32,27 +34,28 @@ public class LoanCalc {
 	// interest rate (as a percentage), the number of periods (n), and the periodical payment.
 	private static double endBalance(double loan, double rate, int n, double payment) {	
 		
-		double currentValue = loan;
-
+			double currentValue = loan;
 		for (int i = 0; i < n; i++) {
-			currentValue = ((currentValue - payment) * (1 + rate));
+			 currentValue = (currentValue - payment) * (1 + rate) ;
+			//if (currentValue < 0) {
+				//currentValue = 0;
+				//break;
+			//}
+			
 		 } 
+		
 			return currentValue;
 	}
 	
-	// Uses sequential search to compute an approximation of the periodical payment
-	// that will bring the ending balance of a loan close to 0.
-	// Given: the sum of the loan, the periodical interest rate (as a percentage),
-	// the number of periods (n), and epsilon, the approximation's accuracy
-	// Side effect: modifies the class variable iterationCounter.
+	
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
 		
 		double g = loan/n;
-		double balance = endBalance(loan, rate, n, g);
-		double increment = 0.3;	
+		double increment = 0.1;	
+		iterationCounter = 0;
 
-		while ( ((endBalance(loan, rate, n, g)) >= epsilon) && (g <= balance)) { 
-			g += increment;
+		while  ((endBalance(loan, rate, n, g)) > epsilon) { 
+			g = g + increment;
 			iterationCounter++;	
 		}
 		return g;
@@ -69,11 +72,12 @@ public class LoanCalc {
 	double high = 2*low;
 	double g = (low + high)/2;
 	iterationCounter = 0;
-	double funG = 0;
+	double funG;
+	
 
 		while ( high - low > epsilon) 
-		{ funG = endBalance(loan, rate, n, g);
-			if (funG > 0) 
+		{ funG = endBalance(loan, rate, n, g); 
+			if (funG > 0)
 			{ low = g; }
 				else high = g;
 			g = (low + high)/2;
@@ -81,6 +85,6 @@ public class LoanCalc {
 		}
 
 
-		return funG;
+		return g;
     }
 }

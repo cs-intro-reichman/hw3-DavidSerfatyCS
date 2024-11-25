@@ -15,7 +15,9 @@ public class Algebra {
    		System.out.println(pow(5,3));      // 5^3
    		System.out.println(pow(3,5));      // 3^5
    		System.out.println(div(12,3));   // 12 / 3    
-   		System.out.println(div(5,5));    // 5 / 5  
+				System.out.println(div(-12,3));	
+				System.out.println(div(-12,-3));	
+		System.out.println(div(5,5));    // 5 / 5  
    		System.out.println(div(25,7));   // 25 / 7
    		System.out.println(mod(25,7));   // 25 % 7
    		System.out.println(mod(120,6));  // 120 % 6    
@@ -25,7 +27,7 @@ public class Algebra {
 	}  
 
 
-		public static int checkx2 (int x2) {
+		public static int checkXSign (int x2) {
 			if (x2 < 0) return -x2; 
 			return x2;
 		}
@@ -34,7 +36,7 @@ public class Algebra {
 	public static int plus(int x1, int x2) {
 
 		int number = x1;
-		int nOfTimes = checkx2(x2);		
+		int nOfTimes = checkXSign(x2);		
 		boolean isX1Negative = x1 < 0;
 		boolean isX2Negative = x2 < 0;
 
@@ -55,7 +57,7 @@ public class Algebra {
 	public static int minus(int x1, int x2) {
 		
 		int number = x1;
-		int x2positive = checkx2(x2);
+		int x2positive = checkXSign(x2);
 		boolean isX1Negative = x1 < 0;
 		boolean isX2Negative = x2 < 0;
 
@@ -75,7 +77,7 @@ public class Algebra {
 		boolean isX1Negative = x1 < 0;
 		boolean isX2Negative = x2 < 0;
 		int firstMultiple = plus(0, x1);
-		int nOftimes = checkx2(x2);
+		int nOftimes = checkXSign(x2);
 		int product = 0;
 
 		for (int i = 0; i < nOftimes; i++) {
@@ -109,24 +111,26 @@ public class Algebra {
 		
 		boolean isX1Negative = x1 < 0;
 		boolean isX2Negative = x2 < 0;
-		int divisor = checkx2(x2);
+		int divisor = checkXSign(x2);
 		int i = 1;
 
-	while (divisor < checkx2(x1)) { 
-		divisor = plus(divisor, x2);
+	while (divisor < checkXSign(x1)) { 
+		divisor = plus(divisor, checkXSign(x2));
 		i++;
 			}
 
-		boolean notBiggerThan = divisor > x1;
+		boolean isBiggerThan = divisor > checkXSign(x1);
 
-	if (notBiggerThan) { int quotient = minus(i, 1);
-				if (isX1Negative && isX2Negative) 
-					return quotient;
-						else if (!isX1Negative || !isX2Negative) 
-							return -quotient;
+	if (isBiggerThan) { int quotient = minus(i, 1);
+				
+			if ((!isX1Negative && isX2Negative) || 
+				(isX1Negative && !isX2Negative)) {
+					return -quotient; 
+					}
+			else return quotient;
 		}
 	
-		if (isX1Negative) { return -i; }
+		if (isX1Negative && !isX2Negative) { return -i; }
 
 		return i;
 	}

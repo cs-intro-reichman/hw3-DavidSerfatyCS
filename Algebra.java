@@ -9,6 +9,7 @@ public class Algebra {
 	    System.out.println(plus(2,3));   // 2 + 3
 	    System.out.println(minus(7,2));  // 7 - 2
    		System.out.println(minus(2,7));  // 2 - 7
+					
  		System.out.println(times(3,4));  // 3 * 4
    		System.out.println(plus(2,times(4,2)));  // 2 + 4 * 2
    		System.out.println(pow(5,3));      // 5^3
@@ -23,13 +24,27 @@ public class Algebra {
    		System.out.println(sqrt(76123));
 	}  
 
+
+		public static int checkx2 (int x2) {
+			if (x2 < 0) return -x2; 
+			return x2;
+		}
+
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
 
 		int number = x1;
-		int nOfTimes = x2;
-		
+		int nOfTimes = checkx2(x2);		
+		boolean isX1Negative = x1 < 0;
+		boolean isX2Negative = x2 < 0;
 
+		if ((isX1Negative && isX2Negative) || !isX1Negative && isX2Negative) {
+			for (int i = 0; i < nOfTimes; i++) {
+			number--;
+		}
+		return number;
+		}
+		 
 		for (int i = 0; i < nOfTimes; i++) {
 			number++;
 		}
@@ -40,9 +55,15 @@ public class Algebra {
 	public static int minus(int x1, int x2) {
 		
 		int number = x1;
-		int nOfTimes = x2;
+		int x2positive = checkx2(x2);
+		boolean isX1Negative = x1 < 0;
+		boolean isX2Negative = x2 < 0;
+
+		if ((isX1Negative && isX2Negative) || (!isX1Negative && isX2Negative)) {
+		return plus(x1, x2positive);
+		}
 		
-		for (int i = 0; i < nOfTimes; i++) {
+		for (int i = 0; i < x2positive; i++) {
 			number--;
 		}
 		return number;
@@ -51,14 +72,17 @@ public class Algebra {
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
 
-		
+		boolean isX1Negative = x1 < 0;
+		boolean isX2Negative = x2 < 0;
 		int firstMultiple = plus(0, x1);
+		int nOftimes = checkx2(x2);
 		int product = 0;
 
-		for (int i = 0; i < x2; i++) {
+		for (int i = 0; i < nOftimes; i++) {
 			
 		product = plus(product, firstMultiple);
 		}
+		if (isX1Negative && isX2Negative) return -product;
 
 		return product;
 	}
@@ -69,27 +93,41 @@ public class Algebra {
 		if ( n == 0 ) return 1;
 		else if ( n == 1 ) return x;
 
+		boolean isXNegative = x < 0;
+		boolean nIsEven = (mod(n, 2) == 0);
 		int product = x;
 
 		for (int i = 0; i <= n-2; i++) {
 		product = times(product, x);
 		}
+		if (isXNegative && !nIsEven) return -product;
 		return product;
 	}
 
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
 		
-		int divisor = x2;
+		boolean isX1Negative = x1 < 0;
+		boolean isX2Negative = x2 < 0;
+		int divisor = checkx2(x2);
 		int i = 1;
 
-		while (divisor < x1) { 
-			divisor = plus(divisor, x2);
-			i++;
+	while (divisor < checkx2(x1)) { 
+		divisor = plus(divisor, x2);
+		i++;
+			}
 
-		}
 		boolean notBiggerThan = divisor > x1;
-		if (notBiggerThan) return minus(i, 1);
+
+	if (notBiggerThan) { int quotient = minus(i, 1);
+				if (isX1Negative && isX2Negative) 
+					return quotient;
+						else if (!isX1Negative || !isX2Negative) 
+							return -quotient;
+		}
+	
+		if (isX1Negative) { return -i; }
+
 		return i;
 	}
 

@@ -24,7 +24,7 @@ public class Algebra {
    		System.out.println(sqrt(36));
 		System.out.println(sqrt(263169));
    		System.out.println(sqrt(76123));
-	}  
+	}
 
 
 		public static int checkXSign (int x2) {
@@ -145,16 +145,29 @@ public class Algebra {
 
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
+	
+		int g = 1;
+		int result = 0;
 
-		int a = 2;
-		int check = 2;
-		boolean equalTo = a == x;
+		while ( result < x) { 
+			int sqrt = times(g, g);
 
-		while (!equalTo) {
-			a = pow(check, 2);
-			check++;
+			if (sqrt == x) { return g; } 
+			else if (sqrt < x) { 
+				result = g;
+				g++;
+			}
+			else break;
+			
 		}
+		return result;
 
-		return a;
-	}	  	  
-}
+
+
+	}
+
+	
+	}
+	
+	
+		  	  

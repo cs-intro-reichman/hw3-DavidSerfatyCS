@@ -8,9 +8,7 @@
             "type": "jdk",
             "request": "launch",
             "name": "Launch Java App",
-            "args": "100000",
-            "args" : "0.05",
-            "args": "10"
+            
         }
     ]
 }

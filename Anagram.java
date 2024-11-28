@@ -1,3 +1,6 @@
+
+import java.util.Arrays;
+
 /** Functions for checking if a given string is an anagram. */
 public class Anagram {
 	public static void main(String args[]) {
@@ -28,22 +31,56 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
+
+		String str1Check = str1.replaceAll("\\W", "");
+		String str2Check = str2.replaceAll("\\W", "");
+
+	if ( str1Check.length() != str2Check.length() ) { return false; }
+
+		str1Check = str1Check.toLowerCase(); 
+		str2Check = str2Check.toLowerCase();
+
+		char[] arr1 = str1Check.toCharArray();
+		char[] arr2 = str2Check.toCharArray();
+		
+		Arrays.sort(arr1);
+		Arrays.sort(arr2);
+
+	return Arrays.equals(arr1, arr2);  
+		
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
-		// Replace the following statement with your code
-		return "";
+		
+		str = str.toLowerCase();
+		String justStr = str.replaceAll("[^\\w\\s]", "");
+
+		return justStr;
 	} 
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
+		
+			str = preProcess(str);
+			char[] charstr = str.toCharArray();
+			int size = str.length();
+			int remain = size;
+			String newWord = "";
+
+			while ( remain > 0) {
+				int r = (int) (Math.random() * size);
+				if ( charstr[r] != '\0') {
+				newWord += charstr[r];
+				charstr[r] = '\0'; 
+				remain--;
+				}
+
+			}
+
+		return newWord;
 	}
 }
